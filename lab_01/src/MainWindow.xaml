@@ -1,0 +1,29 @@
+﻿<Window x:Class="Distribution.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Distribution"
+        xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
+        mc:Ignorable="d"
+        Title="Распределение случайной величины" Height="720" Width="1280">
+    <Grid>
+        <Label HorizontalContentAlignment="Center" FontSize="15" Content="Равномерное распределение" HorizontalAlignment="Left" Margin="20,17,0,0" VerticalAlignment="Top" Width="275"/>
+        <TextBox FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="LeftBorder" HorizontalAlignment="Left" Margin="145,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="32"/>
+        <TextBox FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Name="RightBorder" HorizontalAlignment="Left" Margin="145,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="34"/>
+        <Button FontSize="15" Content="Построить графики" HorizontalAlignment="Left" Margin="20,128,0,0" VerticalAlignment="Top" Width="275" Click="PlotUniform" Height="35" />
+        <TextBox FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Name="Shape" HorizontalAlignment="Left" Margin="145,442,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30"/>
+        <TextBox FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Name="Rate" HorizontalAlignment="Left" Margin="145,477,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="30"/>
+        <Button FontSize="15"  Content="Построить графики" HorizontalAlignment="Left" Margin="20,512,0,0" VerticalAlignment="Top" Width="275" Click="PlotErlang" Height="35" />
+        <ScottPlot:WpfPlot Margin="300,40,10,350" x:Name="Density"  />
+        <ScottPlot:WpfPlot Margin="300,400,10,10" x:Name="Function" />
+        <Label FontSize="15"  Content="Форма" HorizontalAlignment="Left" Margin="20,442,0,0" VerticalAlignment="Top"/>
+        <Label FontSize="15"  Content="Интенсивность" HorizontalAlignment="Left" Margin="20,477,0,0" VerticalAlignment="Top"/>
+        <Label FontSize="15" Content="Левая граница" HorizontalAlignment="Left" Margin="20,51,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label FontSize="15" Content="Правая граница" HorizontalAlignment="Left" Margin="20,90,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label FontSize="15" HorizontalContentAlignment="Center" Content="Распределение Эрланга" HorizontalAlignment="Left" Margin="20,400,0,0" VerticalAlignment="Top" Width="275"/>
+        <Label Content="Плотность распределения" FontSize="20" HorizontalContentAlignment="Center" Margin="300,4,0,0" VerticalAlignment="Top" Width="970"/>
+        <Label Content="Функция распределения" FontSize="20" HorizontalContentAlignment="Center" Margin="300,358,10,0" VerticalAlignment="Top" Width="970"/>
+    </Grid>
+</Window>
+    
