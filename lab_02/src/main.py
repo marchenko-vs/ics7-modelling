@@ -11,7 +11,7 @@ COLOR_WHITE = "#ffffff"
 STATES_NUM = 0
 
 WINDOW_WIDTH = 1400
-WINDOW_HEIGHT = 800
+WINDOW_HEIGHT = 700
 
 BORDERS_PART = 0.03
 BORDERS_WIDTH = int(WINDOW_WIDTH * BORDERS_PART)
@@ -124,9 +124,9 @@ def generate_matrix_entries(size):
 
 def place_initial_conditions(size):
     global INITIAL_CONDITIONS
-    value = 1.0 / size
-    for i in range(size):
-        INITIAL_CONDITIONS[i].insert(0, '{:.4f}'.format(value))
+    INITIAL_CONDITIONS[0].insert(0, '1.0')
+    for i in range(1, size):
+        INITIAL_CONDITIONS[i].insert(0, '0.0')
     for i in range(size):
         INITIAL_CONDITIONS[i].place(x=int(i / size * MATRIX_WIDTH), y=DATA_HEIGHT * 1 // MATRIX_FRAME_ROWS,
                                  width=MATRIX_WIDTH // size, height=DATA_HEIGHT // MATRIX_FRAME_ROWS)
@@ -180,6 +180,8 @@ def process():
         step = float(step_entry.get())
 
         matrix = [[float(MATRIX_ENTRIES[i][j].get()) for j in range(STATES_NUM)] for i in range(STATES_NUM)]
+        for i in range(len(matrix)):
+            matrix[i][i] = 0.0
         start_probs = [float(INITIAL_CONDITIONS[i].get()) for i in range(STATES_NUM)]
         
         probabilities, times = solve(matrix, start_probs, step, eps)
@@ -221,7 +223,7 @@ eps_label = tk.Label(data_frame, text="Точность", font=("Arial", 14),
                         fg=COLOR_BLACK, bg=COLOR_WHITE)
 eps_entry = tk.Entry(data_frame, bg=COLOR_WHITE, font=("Arial", 14),
                     fg=COLOR_BLACK, justify="center")
-eps_entry.insert(0, '1e-5')
+eps_entry.insert(0, '1e-3')
 
 step_label = tk.Label(data_frame, text="Шаг", font=("Arial", 14),
                         fg=COLOR_BLACK, bg=COLOR_WHITE)

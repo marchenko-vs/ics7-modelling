@@ -24,7 +24,7 @@ def solve_ode(matrix, initial_conditions, step, steady_states, eps):
     coefficient_matrix = [
         [-sum(matrix[i]) if j == i else matrix[j][i] for j in range(len(matrix))]
         for i in range(len(matrix))]
-    t_vector = np.arange(0, 100, step)
+    t_vector = np.arange(0, 200, step)
     results = sp.odeint(derivative, initial_conditions, t_vector,
                      args=(coefficient_matrix,), atol=1.0e-8, rtol=1.0e-6)
     results = np.transpose(results)
