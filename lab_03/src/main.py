@@ -8,12 +8,12 @@ import utils
 COLOR_BLACK = "#000000"
 COLOR_WHITE = "#ffffff"
 
-MAX_NUMBERS = 0
+MAX_NUMBERS = 10
 TABLES_NUM = 7
 ITERATION = 0
 
 WINDOW_WIDTH = 1400
-WINDOW_HEIGHT = 700
+WINDOW_HEIGHT = 750
 
 BORDERS_PART = 0.03
 BORDERS_WIDTH = int(WINDOW_WIDTH * BORDERS_PART)
@@ -60,9 +60,9 @@ matrix_frame.place(x=int(BORDERS_WIDTH * 2 + DATA_WIDTH), y=int(BORDERS_HEIGHT),
 def place_matrix_entries(size):
     global MAIN_TABLE
     for i in range(size + 1):
-        curr_y = 50
+        curr_y = 100
         for j in range(TABLES_NUM):
-            my_height = DATA_HEIGHT // (MATRIX_FRAME_ROWS + 1)
+            my_height = DATA_HEIGHT // (MATRIX_FRAME_ROWS + 2)
             MAIN_TABLE[i][j].insert(0, '0')
             MAIN_TABLE[i][j].place(x=int(j / TABLES_NUM * MATRIX_WIDTH),
                 y=curr_y + i * my_height,
@@ -100,7 +100,7 @@ def init_tables(entry):
         MAX_NUMBERS = size
         set_matrix(size)
     except ValueError:
-        mb.showerror(title="Ошибка!", message="Количество состояний должно быть целым числом от 2 до 10.")
+        mb.showerror(title="Ошибка!", message="Длина последовательности должна быть целым числом от 1 до 10.")
 
 
 def hi_custom():
@@ -166,18 +166,26 @@ max_numbers_label = tk.Label(data_frame, text="Длина последовате
 max_numbers_entry = tk.Entry(data_frame, fg=COLOR_BLACK, font=("Arial", 14),
                       bg=COLOR_WHITE, justify="center")
 max_numbers_entry.insert(0, '10')
-MAX_NUMBERS_button = tk.Button(data_frame, text="Задать", font=("Arial", 14), command=lambda: init_tables(max_numbers_entry))
+max_numbers_button = tk.Button(data_frame, text="Задать", font=("Arial", 14), 
+                               bg=COLOR_WHITE, fg=COLOR_BLACK, command=lambda: init_tables(max_numbers_entry))
 
 matrix_label = tk.Label(matrix_frame, text="Последовательности случайных чисел", font=("Arial", 14),
                         bg=COLOR_WHITE, fg=COLOR_BLACK)
 
+alg_label = tk.Label(matrix_frame, text="Алгоритмический метод", font=("Arial", 14),
+                        bg=COLOR_WHITE, fg=COLOR_BLACK)
+
+table_label = tk.Label(matrix_frame, text="Табличный метод", font=("Arial", 14),
+                        bg=COLOR_WHITE, fg=COLOR_BLACK)
+
+user_label = tk.Label(matrix_frame, text="Пользовательская\nпосл-ть", font=("Arial", 14),
+                        bg=COLOR_WHITE, fg=COLOR_BLACK)
+
 generate_button = tk.Button(data_frame, text="Сгенерировать", font=("Arial", 14),
-                      bg=COLOR_WHITE, fg=COLOR_BLACK, command=process,
-                      activebackground=COLOR_WHITE, activeforeground=COLOR_BLACK)
+                      bg=COLOR_WHITE, fg=COLOR_BLACK, command=process,)
 
 estimate_button = tk.Button(data_frame, text="Оценить", font=("Arial", 14),
-                      bg=COLOR_WHITE, fg=COLOR_BLACK, command=hi_custom,
-                      activebackground=COLOR_WHITE, activeforeground=COLOR_BLACK)
+                      bg=COLOR_WHITE, fg=COLOR_BLACK, command=hi_custom,)
 
 max_numbers_label.place(x=0, y=DATA_HEIGHT * 0 // ROWS, width=DATA_WIDTH,
                   height=DATA_HEIGHT // ROWS)
@@ -185,7 +193,7 @@ max_numbers_label.place(x=0, y=DATA_HEIGHT * 0 // ROWS, width=DATA_WIDTH,
 max_numbers_entry.place(x=0, y=DATA_HEIGHT * 1 // ROWS, width=DATA_WIDTH,
                   height=DATA_HEIGHT // ROWS)
 
-MAX_NUMBERS_button.place(x=0, y=DATA_HEIGHT * 2 // ROWS, width=DATA_WIDTH,
+max_numbers_button.place(x=0, y=DATA_HEIGHT * 2 // ROWS, width=DATA_WIDTH,
                   height=DATA_HEIGHT // ROWS)
 
 generate_button.place(x=0, y=DATA_HEIGHT * 3 // ROWS, width=DATA_WIDTH,
@@ -196,5 +204,14 @@ estimate_button.place(x=0, y=DATA_HEIGHT * 4 // ROWS, width=DATA_WIDTH,
 
 matrix_label.place(x=0, y=DATA_HEIGHT // MATRIX_FRAME_ROWS - 75, width=MATRIX_WIDTH,
                   height=DATA_HEIGHT // MATRIX_FRAME_ROWS)
+
+alg_label.place(x=75, y=DATA_HEIGHT // MATRIX_FRAME_ROWS - 25, width=300,
+                  height=DATA_HEIGHT // MATRIX_FRAME_ROWS)
+table_label.place(x=475, y=DATA_HEIGHT // MATRIX_FRAME_ROWS - 25, width=300,
+                  height=DATA_HEIGHT // MATRIX_FRAME_ROWS)
+user_label.place(x=745, y=DATA_HEIGHT // MATRIX_FRAME_ROWS - 25, width=300,
+                  height=DATA_HEIGHT // MATRIX_FRAME_ROWS)
+
+set_matrix(MAX_NUMBERS)
 
 root.mainloop()

@@ -20,7 +20,7 @@ class LCG:
 
 def table_rand():
     numbers = set()
-    with open('digits.txt') as file: 
+    with open('../cfg/table.txt') as file: 
         line_num = 0
         lines = islice(file, line_num, None)
         for l in lines:
