@@ -119,7 +119,7 @@ def hi_custom():
         else: 
             MAIN_TABLE[hi_row][6].insert(0, '{:.2f}'.format(utils.calc_hi(custom_sequence, MAX_NUMBERS, 100, 1000)))
     except Exception:
-        mb.showerror(title="Ошибка!", message="Некорректно введена последовательность")
+        mb.showerror(title="Ошибка!", message="В последовательности все числа должны иметь одинаково к-во разрядов")
 
 
 def process():
