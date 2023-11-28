@@ -1,8 +1,8 @@
 import distributions as db
 import tkinter
 import tkinter.messagebox as mb
-import step_model as sm
-import event_model as em
+import delta_t
+import events
 
 
 def init_entries():
@@ -74,10 +74,10 @@ def start_modelling():
         return
 
     delta_t_max_queue_len_entry.delete(0, 'end') 
-    delta_t_max_queue_len_entry.insert(0, str(sm.step_model(generator, processor, total_tasks, repetitions, step)))   
+    delta_t_max_queue_len_entry.insert(0, str(delta_t.delta_t(generator, processor, total_tasks, repetitions, step)))   
     
     event_max_queue_len_entry.delete(0, 'end')
-    event_max_queue_len_entry.insert(0, str(em.event_model(generator, processor, total_tasks, repetitions)))
+    event_max_queue_len_entry.insert(0, str(events.events_method(generator, processor, total_tasks, repetitions)))
 
 
 root = tkinter.Tk()
