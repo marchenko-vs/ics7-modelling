@@ -1,4 +1,6 @@
+import computer
 import processor
+import generator as gen
 
 
 class Modeller:
@@ -38,7 +40,7 @@ class Modeller:
 
             for block in blocks:
                 if abs(current_time - block.time) <= 1e-3:
-                    if not isinstance(block, processor.Processor):
+                    if isinstance(block, gen.Generator):
                         operator = generator.generate_request()
                         if operator is not None:
                             operator.time = current_time + operator.generate_time()
@@ -46,11 +48,25 @@ class Modeller:
                         else:
                             denials_num += 1
                         generator.time = current_time + generator.generate_time()
-                    else:
+                    elif isinstance(block, processor.Processor):
                         block.process_request()
                         if block.curr_queue_len == 0:
                             block.time = 0
                         else:
                             block.time = current_time + block.generate_time()
 
-        return denials_num, processed_requests, current_time
+                        block.receivers[0].receive_request()
+                        if block.receivers[0].curr_queue_len == 0:
+                            block.receivers[0].time = 0
+                        else:
+                            block.receivers[0].time = current_time + block.receivers[0].generate_time()
+                    else:
+                        print(block)
+                        block.process_request()
+                        if block.curr_queue_len == 0:
+                            block.time = 0
+                        else:
+                            block.time = current_time + block.generate_time()
+
+        return denials_num, processed_requests, current_time, \
+               blocks[4].max_queue_len, blocks[5].max_queue_len

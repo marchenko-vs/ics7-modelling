@@ -1,10 +1,11 @@
 import generator as gen
 
 
-class Processor(gen.Generator):
+class Processor:
     def __init__(self, randomizer, max_queue_len=-1):
         self.randomizer = randomizer
         self.max_queue_len = max_queue_len
+        self.receivers = list()
         self.curr_queue_len = 0
         self.processed_requests = 0
         self.received_requests = 0
@@ -23,4 +24,7 @@ class Processor(gen.Generator):
             return True
         
         return False
+    
+    def generate_time(self):
+        return self.randomizer.generate()
     

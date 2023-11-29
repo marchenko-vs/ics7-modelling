@@ -27,12 +27,6 @@ def init_entries():
     operator_3_error_box.delete(0, 'end')
     operator_3_error_box.insert(0, '20')
 
-    pc_1_time_box.delete(0, 'end')
-    pc_1_time_box.insert(0, '15')
-
-    pc_2_time_box.delete(0, 'end')
-    pc_2_time_box.insert(0, '30')
-
     requests_num_box.delete(0, 'end')
     requests_num_box.insert(0, '300')
 
@@ -67,18 +61,6 @@ def start_modelling():
         return
 
     try:
-        pc_1_time = int(pc_1_time_box.get())
-    except ValueError:
-        mb.showerror(title="Ошибка!", message="Некорректно задано время обработки первым компьютером.")
-        return
-
-    try:
-        pc_2_time = int(pc_2_time_box.get())
-    except ValueError:
-        mb.showerror(title="Ошибка!", message="Некорректно задано время обработки вторым компьютером.")
-        return
-
-    try:
         requests_num = int(requests_num_box.get())
     except ValueError:
         mb.showerror(title="Ошибка!", message="Некорректно задано количество заявок.")
@@ -106,8 +88,8 @@ def start_modelling():
     ]
 
     computers = [
-        processor.Processor(distributions.Uniform(pc_1_time, pc_1_time)),
-        processor.Processor(distributions.Uniform(pc_2_time, pc_2_time)),
+        processor.Processor(distributions.Uniform(15, 15)),
+        processor.Processor(distributions.Uniform(30, 30)),
     ]
 
     # generator = gen.Generator(distributions.Normal(generator_time, 
@@ -129,8 +111,8 @@ def start_modelling():
     # ]
 
     # computers = [
-    #     processor.Processor(distributions.Normal(pc_1_time, 0),),
-    #     processor.Processor(distributions.Normal(pc_2_time, 0),),
+    #     processor.Processor(distributions.Normal(pc_1_time, pc_1_error),),
+    #     processor.Processor(distributions.Normal(pc_2_time, pc_2_error),),
     # ]
 
     model = modeller.Modeller(generator, operators, computers)
@@ -145,7 +127,8 @@ def start_modelling():
 
 root = tkinter.Tk()
 root.title('Лабораторная работа №5')
-root.geometry('1000x700+0+0')
+root.geometry('800x500+0+0')
+root.maxsize(800, 500)
 
 generator_label = tkinter.Label(text='Параметры генератора', font=('Arial', 13))
 generator_label.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
@@ -189,45 +172,34 @@ operator_3_error_label.grid(row=9, column=1, padx=10, pady=10)
 operator_3_error_box = tkinter.Entry(font=('Arial', 13), justify='center')
 operator_3_error_box.grid(row=9, column=2, padx=10, pady=10)
 
-pcs_label = tkinter.Label(text='Параметры компьютеров', font=('Arial', 13))
-pcs_label.grid(row=10, column=0, columnspan=3, padx=10, pady=10)
-
-pc_1_time_label = tkinter.Label(text='Время обработки первым компьютером', font=('Arial', 13))
-pc_1_time_label.grid(row=11, column=0, columnspan=3, padx=10, pady=10)
-pc_1_time_box = tkinter.Entry(font=('Arial', 13), justify='center')
-pc_1_time_box.grid(row=12, column=0, columnspan=3,  padx=10, pady=10)
-
-pc_2_time_label = tkinter.Label(text='Время обработки вторым компьютером', font=('Arial', 13))
-pc_2_time_label.grid(row=13, column=0, columnspan=3, padx=10, pady=10)
-pc_2_time_box = tkinter.Entry(font=('Arial', 13), justify='center')
-pc_2_time_box.grid(row=14, column=0, columnspan=3, padx=10, pady=10)
-
 modelling_label = tkinter.Label(text='Параметры моделирования', font=('Arial', 13))
 modelling_label.grid(row=0, column=3, padx=100, pady=10)
 
 requests_num_label = tkinter.Label(text='Количество заявок', font=('Arial', 13))
 requests_num_label.grid(row=1, column=3, padx=100, pady=10)
-requests_num_box = tkinter.Entry(font=('Arial', 13))
+requests_num_box = tkinter.Entry(font=('Arial', 13), justify='center')
 requests_num_box.grid(row=2, column=3, padx=100, pady=10)
 
 results_label = tkinter.Label(text='Результат моделирования', font=('Arial', 13))
-results_label.grid(row=6, column=3, padx=100, pady=10)
+results_label.grid(row=3, column=3, padx=100, pady=10)
 
 denial_num_label = tkinter.Label(text='Количество отказов', font=('Arial', 13))
-denial_num_label.grid(row=7, column=3, padx=100, pady=10)
+denial_num_label.grid(row=4, column=3, padx=100, pady=10)
 denial_num_box = tkinter.Entry(font=('Arial', 13), justify='center')
-denial_num_box.grid(row=8, column=3, padx=100, pady=10)
+denial_num_box.grid(row=5, column=3, padx=100, pady=10)
 
 denial_percentage_label = tkinter.Label(text='Вероятность отказа', font=('Arial', 13))
-denial_percentage_label.grid(row=9, column=3, padx=100, pady=10)
+denial_percentage_label.grid(row=6, column=3, padx=100, pady=10)
 denial_percentage_box = tkinter.Entry(font=('Arial', 13), justify='center')
-denial_percentage_box.grid(row=10, column=3, padx=100, pady=10)
+denial_percentage_box.grid(row=7, column=3, padx=100, pady=10)
 
-modelling_button = tkinter.Button(text='Начальные значения', font=('Arial', 13), command=init_entries)
-modelling_button.grid(row=12, column=3, padx=100, pady=10)
+modelling_button = tkinter.Button(text='Начальные значения', font=('Arial', 13), 
+                                  width=20, command=init_entries)
+modelling_button.grid(row=8, column=3, padx=100, pady=10)
 
-modelling_button = tkinter.Button(text='Моделировать', font=('Arial', 13), command=start_modelling)
-modelling_button.grid(row=13, column=3, padx=100, pady=10)
+modelling_button = tkinter.Button(text='Моделировать', font=('Arial', 13), 
+                                  width=20, command=start_modelling)
+modelling_button.grid(row=9, column=3, padx=100, pady=10)
 
 init_entries()
 
